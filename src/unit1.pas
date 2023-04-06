@@ -169,8 +169,9 @@ Begin
    *            0.10 = Form2.caption gesetzt.
    *            0.11 = Ini umgestellt auf locales User Verzeichnis
    *            0.12 = Wenn die zu Kopierende Datei nicht im Relativen Verzeichnis, aber dafür im Lokalen ist, dann auch kopieren
+   *            0.13 = Default "ispartof" -> False
    *)
-  caption := 'Project Collector ver. 0.12 by Corpsman, Support : www.Corpsman.de';
+  caption := 'Project Collector ver. 0.13 by Corpsman, Support : www.Corpsman.de';
   SelectDirectoryDialog1.InitialDir := ExtractFileDir(paramstr(0));
   OpenDialog1.InitialDir := ExtractFileDir(paramstr(0));
   label2.caption := 'none';
@@ -353,27 +354,24 @@ Begin
   While assigned(siblings) Do Begin
     fname := siblings.FindNode('Filename', False);
     If assigned(fname) Then Begin
-      ispart := true;
+      ispart := false;
       setlength(FFiles, high(FFiles) + 2);
       FFiles[high(FFiles)] := ToRealFileName(fname.AttributeValue['Value'], Projectpath);
       If Not FileExistsUTF8(FFiles[high(FFiles)]) Then Begin
         (*
-         * Die Datei gibt es nicht, evtl gibt es sie aber im "Lokalen" Verzeichnis der .lpi Datei, dann biegen wir den Pfad um und nehmen sie dennoch :-)
+         * Die Datei gibt es nicht, evtl. gibt es sie aber im "Lokalen" Verzeichnis der .lpi Datei, dann biegen wir den Pfad um und nehmen sie dennoch :-)
          *)
         t := IncludeTrailingPathDelimiter(ExtractFilePath(Filename)) + ExtractFileName(FFiles[high(FFiles)]);
         If FileExistsUTF8(t) Then Begin
           FFiles[high(FFiles)] := t;
-        End
-        Else Begin
-          ispart := false;
         End;
       End;
 
       CheckListBox1.Items.Add(ExtractFileName(FFiles[high(FFiles)]));
       partof := siblings.FindNode('IsPartOfProject', False);
       If assigned(partof) Then Begin
-        If lowercase(partof.AttributeValue['Value']) = 'false' Then Begin
-          ispart := false;
+        If lowercase(partof.AttributeValue['Value']) = 'true' Then Begin
+          ispart := true;
         End;
       End;
       CheckListBox1.Checked[CheckListBox1.Count - 1] := ispart;
