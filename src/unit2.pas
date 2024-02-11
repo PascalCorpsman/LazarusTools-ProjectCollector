@@ -1,3 +1,17 @@
+(******************************************************************************)
+(*                                                                            *)
+(* Author      : Uwe Schächterle (Corpsman)                                   *)
+(*                                                                            *)
+(* This file is part of Project_collectpr                                     *)
+(*                                                                            *)
+(*  See the file license.md, located under:                                   *)
+(*  https://github.com/PascalCorpsman/Software_Licenses/blob/main/license.md  *)
+(*  for details about the license.                                            *)
+(*                                                                            *)
+(*               It is not allowed to change or remove this text from any     *)
+(*               source file of the project.                                  *)
+(*                                                                            *)
+(******************************************************************************)
 Unit Unit2;
 
 {$MODE objfpc}{$H+}
@@ -108,13 +122,12 @@ End;
 Procedure TForm2.Load_LPI_File(aFilename: String);
 Var
   fname, unitNode, siblings: TDomNode;
-  s: String;
   i, j: Integer;
   ffiles: TFileListe;
   found: Boolean;
 Begin
   ffilename := aFilename;
-  setlength(ffiles, 0);
+  ffiles := Nil;
   fXML.Clear;
   fXML.LoadFromFile(aFilename);
   unitNode := fXML.DocumentElement.FindNode('units', false);

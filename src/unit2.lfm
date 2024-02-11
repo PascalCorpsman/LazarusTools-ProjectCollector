@@ -6,10 +6,10 @@ object Form2: TForm2
   Caption = 'Form2'
   ClientHeight = 314
   ClientWidth = 711
+  Position = poScreenCenter
+  LCLVersion = '3.99.0.0'
   OnCreate = FormCreate
   OnDestroy = FormDestroy
-  Position = poScreenCenter
-  LCLVersion = '2.0.2.0'
   object StringGrid1: TStringGrid
     Left = 8
     Height = 264
@@ -44,7 +44,7 @@ object Form2: TForm2
     Width = 696
     Anchors = [akLeft, akRight, akBottom]
     Caption = 'OK'
-    OnClick = Button1Click
     TabOrder = 1
+    OnClick = Button1Click
   end
 end

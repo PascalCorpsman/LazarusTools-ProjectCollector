@@ -1,3 +1,51 @@
+(******************************************************************************)
+(* Project_collector                                               ??.??.???? *)
+(*                                                                            *)
+(* Version     : 0.13                                                         *)
+(*                                                                            *)
+(* Author      : Uwe Schächterle (Corpsman)                                   *)
+(*                                                                            *)
+(* Support     : www.Corpsman.de                                              *)
+(*                                                                            *)
+(* Description : Copy all project files of a Lazarus Project into one single  *)
+(*               folder.                                                      *)
+(*                                                                            *)
+(* License     : See the file license.md, located under:                      *)
+(*  https://github.com/PascalCorpsman/Software_Licenses/blob/main/license.md  *)
+(*  for details about the license.                                            *)
+(*                                                                            *)
+(*               It is not allowed to change or remove this text from any     *)
+(*               source file of the project.                                  *)
+(*                                                                            *)
+(* Warranty    : There is no warranty, neither in correctness of the          *)
+(*               implementation, nor anything other that could happen         *)
+(*               or go wrong, use at your own risk.                           *)
+(*                                                                            *)
+(* Known Issues: none                                                         *)
+(*                                                                            *)
+(* History     : 0.01 - Initial version                                       *)
+(*               0.02 - Unterdrücken Resolve fehler.                          *)
+(*                      Einbauen Konsolensupport                              *)
+(*               0.03 - Speichern der Recent lpi files                        *)
+(*                      Umstellen auf Englische Texte                         *)
+(*               0.04 - Bugfix Laden in Windows erstelltes .lpi auf Linux     *)
+(*                        (Auflösen Relative Pfade hat nicht gestimmt)        *)
+(*               0.05 - Bugfix Auflösen tieferer Relativer Pfade war Kaputt   *)
+(*                        Aktivieren DragDrog von .lpi Dateien                *)
+(*               0.06 - Bugfix, eine Unit die nicht Teil des Projektes ist,   *)
+(*                        darf auch ihre .lfm nicht nachladen                 *)
+(*               0.07 - Bugfix, Gemischte "/" und "\" in Absoluten und        *)
+(*                        Relativen Pfaden wurden falsch aufgelöst            *)
+(*               0.08 - Umstellen auf uDomXML                                 *)
+(*               0.09 - Integration eines Doppelte Dateien Erkennens          *)
+(*               0.10 - Form2.caption gesetzt.                                *)
+(*               0.11 - Ini umgestellt auf locales User Verzeichnis           *)
+(*               0.12 - Wenn die zu Kopierende Datei nicht im Relativen       *)
+(*                        Verzeichnis, aber dafür im Lokalen ist, dann auch   *)
+(*                        kopieren                                            *)
+(*               0.13 - Default "ispartof" -> False                           *)
+(*                                                                            *)
+(******************************************************************************)
 Unit Unit1;
 
 {$MODE objfpc}{$H+}
@@ -153,24 +201,6 @@ Begin
   End;
   Constraints.MinWidth := Width;
   Constraints.MinHeight := Height;
-  (*
-   * Historie : 0.01 = Initialversion
-   *            0.02 = Unterdrücken Resolve fehler.
-   *                   Einbauen Konsolensupport
-   *            0.03 = Speichern der Recent lpi files
-   *                   Umstellen auf Englische Texte
-   *            0.04 = Bugfix Laden in Windows erstelltes .lpi auf Linux (Auflösen Relative Pfade hat nicht gestimmt)
-   *            0.05 = Bugfix Auflösen tieferer Relativer Pfade war Kaputt
-   *                   Aktivieren DragDrog von .lpi Dateien
-   *            0.06 = Bugfix, eine Unit die nicht Teil des Projektes ist, darf auch ihre .lfm nicht nachladen
-   *            0.07 = Bugfix, Gemischte "/" und "\" in Absoluten und Relativen Pfaden wurden falsch aufgelöst
-   *            0.08 = Umstellen auf uDomXML
-   *            0.09 = Integration eines Doppelte Dateien Erkennens
-   *            0.10 = Form2.caption gesetzt.
-   *            0.11 = Ini umgestellt auf locales User Verzeichnis
-   *            0.12 = Wenn die zu Kopierende Datei nicht im Relativen Verzeichnis, aber dafür im Lokalen ist, dann auch kopieren
-   *            0.13 = Default "ispartof" -> False
-   *)
   caption := 'Project Collector ver. 0.13 by Corpsman, Support : www.Corpsman.de';
   SelectDirectoryDialog1.InitialDir := ExtractFileDir(paramstr(0));
   OpenDialog1.InitialDir := ExtractFileDir(paramstr(0));
@@ -261,7 +291,7 @@ Begin
     End;
     If (infile = '') Or (OutDir = '') Then Begin
       showmessage('Error either input file or output dir is not set.' + LineEnding +
-        'Useage "-i project1.lpi -o ' +
+        'Usage "-i project1.lpi -o ' +
 {$IFDEF Windows}
         'c:\Temp\Test\'
 {$ELSE}
