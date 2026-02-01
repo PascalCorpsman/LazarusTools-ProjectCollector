@@ -1,7 +1,7 @@
 (******************************************************************************)
 (* Project_collector                                               ??.??.???? *)
 (*                                                                            *)
-(* Version     : 0.13                                                         *)
+(* Version     : 0.14                                                         *)
 (*                                                                            *)
 (* Author      : Uwe Schächterle (Corpsman)                                   *)
 (*                                                                            *)
@@ -44,6 +44,7 @@
 (*                        Verzeichnis, aber dafür im Lokalen ist, dann auch   *)
 (*                        kopieren                                            *)
 (*               0.13 - Default "ispartof" -> False                           *)
+(*               0.14 - fix gui glitch on missing files                       *)
 (*                                                                            *)
 (******************************************************************************)
 Unit Unit1;
@@ -55,6 +56,9 @@ Interface
 Uses
   Classes, SysUtils, FileUtil, LazFileUtils, LazUTF8, LResources, Forms, Controls, Graphics, Dialogs,
   StdCtrls, ExtCtrls, CheckLst, IniFiles;
+
+Const
+  Version = '0.14';
 
 Type
 
@@ -201,7 +205,7 @@ Begin
   End;
   Constraints.MinWidth := Width;
   Constraints.MinHeight := Height;
-  caption := 'Project Collector ver. 0.13 by Corpsman, Support : www.Corpsman.de';
+  caption := 'Project Collector ver. ' + Version + ' by Corpsman, Support : www.Corpsman.de';
   SelectDirectoryDialog1.InitialDir := ExtractFileDir(paramstr(0));
   OpenDialog1.InitialDir := ExtractFileDir(paramstr(0));
   label2.caption := 'none';
