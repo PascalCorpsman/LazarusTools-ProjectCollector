@@ -1,7 +1,7 @@
 (******************************************************************************)
 (* Project_collector                                               ??.??.???? *)
 (*                                                                            *)
-(* Version     : 0.14                                                         *)
+(* Version     : 0.15                                                         *)
 (*                                                                            *)
 (* Author      : Uwe Schächterle (Corpsman)                                   *)
 (*                                                                            *)
@@ -45,6 +45,7 @@
 (*                        kopieren                                            *)
 (*               0.13 - Default "ispartof" -> False                           *)
 (*               0.14 - fix gui glitch on missing files                       *)
+(*               0.15 -                                                       *)
 (*                                                                            *)
 (******************************************************************************)
 Unit Unit1;
@@ -58,7 +59,7 @@ Uses
   StdCtrls, ExtCtrls, CheckLst, IniFiles;
 
 Const
-  Version = '0.14';
+  Version = '0.15';
 
 Type
 
