@@ -256,12 +256,11 @@ End;
 Procedure TForm1.FormShow(Sender: TObject);
 Var
   i: integer;
-  infile: String;
-  OutDir: String;
+  infile, OutDir, FileErrors: String;
 Begin
   (*
    * 2  Modi gibt es
-   * 1. Ladan eines .lpi Files                      für den Halbautomatischen Betrieb
+   * 1. Laden eines .lpi Files                      für den Halbautomatischen Betrieb
    * 2. Laden einer -i lpi und eines -o Verzeichnis für den Vollautomatischen Betrieb
    *)
   If Paramcount <> 0 Then Begin
@@ -301,9 +300,9 @@ Begin
       halt;
     End;
     Load_LPI_File(infile);
-    infile := Copy_Project_Files(OutDir);
-    If infile <> '' Then Begin
-      ShowMessage(infile);
+    FileErrors := Copy_Project_Files(OutDir);
+    If FileErrors <> '' Then Begin
+      ShowMessage('Error, unable to copy the files:' + LineEnding + FileErrors);
       halt(1);
     End
     Else Begin

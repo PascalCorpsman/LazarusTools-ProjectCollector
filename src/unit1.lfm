@@ -8,7 +8,7 @@ object Form1: TForm1
   Caption = 'Form1'
   ClientHeight = 405
   ClientWidth = 613
-  LCLVersion = '3.99.0.0'
+  LCLVersion = '4.99.0.0'
   OnClose = FormClose
   OnCreate = FormCreate
   OnDropFiles = FormDropFiles
@@ -57,21 +57,21 @@ object Form1: TForm1
     Left = 16
     Height = 16
     Top = 80
-    Width = 87
+    Width = 86
     Caption = 'Actual project:'
   end
   object Label2: TLabel
     Left = 136
     Height = 16
     Top = 80
-    Width = 41
+    Width = 40
     Caption = 'Label2'
   end
   object Label3: TLabel
     Left = 16
     Height = 16
     Top = 48
-    Width = 146
+    Width = 141
     Caption = 'Recently used *.lpi files :'
   end
   object ComboBox1: TComboBox
