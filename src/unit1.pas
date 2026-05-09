@@ -45,7 +45,7 @@
 (*                        kopieren                                            *)
 (*               0.13 - Default "ispartof" -> False                           *)
 (*               0.14 - fix gui glitch on missing files                       *)
-(*               0.15 -                                                       *)
+(*               0.15 - Adjust to new .lpi file format (IsPartOfProject       *)
 (*                                                                            *)
 (******************************************************************************)
 Unit Unit1;
@@ -342,8 +342,9 @@ Var
   t: String;
   ispart: Boolean;
   i: integer;
-  fname, siblings, partof, unitNode: TDomNode;
+  fname, siblings, partof, unitNode, VersionNode: TDomNode;
   foundDoubles: Boolean;
+  lpiVersion: integer;
 Begin
   // Vorbedingungen
   ispart := false;
@@ -377,6 +378,20 @@ Begin
     parser.free;
     exit;
   End;
+  // Auslesen der .lpi Version
+  VersionNode := parser.DocumentElement.FindNode('Version', false);
+  If (Not assigned(VersionNode)) Or (VersionNode.AttributeCount = 0) Then Begin
+    showmessage('No version found.');
+    parser.free;
+    exit;
+  End;
+
+  lpiVersion := strtointdef(VersionNode.AttributeValue['Value'], -1);
+  If lpiVersion = -1 Then Begin
+    showmessage('No version found.');
+    parser.free;
+    exit;
+  End;
   unitNode := parser.DocumentElement.FindNode('units', false);
   If Not assigned(unitNode) Then Begin
     showmessage('No units section found.');
@@ -407,6 +422,10 @@ Begin
         If lowercase(partof.AttributeValue['Value']) = 'true' Then Begin
           ispart := true;
         End;
+      End
+      Else Begin
+        // Ab lpiVersion 13 ist ein Nicht vorhanden sein = true
+        If lpiVersion >= 13 Then ispart := true;
       End;
       CheckListBox1.Checked[CheckListBox1.Count - 1] := ispart;
       // Doppelte aktive Raus werfen

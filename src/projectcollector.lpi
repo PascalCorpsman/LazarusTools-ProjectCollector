@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CONFIG>
   <ProjectOptions>
-    <Version Value="12"/>
+    <Version Value="13"/>
     <General>
       <Flags>
         <CompatibilityMode Value="True"/>
@@ -22,14 +22,14 @@
     </PublishOptions>
     <RunParams>
       <local>
-        <CommandLineParams Value="-i /sda5/sda5/Tools/Projects/FPC_Understand/FPC_Understand.lpi -o /sda5/sda5/Temp/fpc_understand_git/src/"/>
+        <CommandLineParams Value="-i /sda5/sda5/Tools/Projects/FPC_Understand/FPC_Understand.lpi -o /sda5/sda5/Temp/_0_Github/fpc_understand_git/src"/>
         <LaunchingApplication PathPlusParams="/usr/X11R6/bin/xterm -T &apos;Lazarus Run Output&apos; -e $(LazarusDir)/tools/runwait.sh $(TargetCmdLine)"/>
       </local>
       <FormatVersion Value="2"/>
       <Modes Count="1">
         <Mode0 Name="default">
           <local>
-            <CommandLineParams Value="-i /sda5/sda5/Tools/Projects/FPC_Understand/FPC_Understand.lpi -o /sda5/sda5/Temp/fpc_understand_git/src/"/>
+            <CommandLineParams Value="-i /sda5/sda5/Tools/Projects/FPC_Understand/FPC_Understand.lpi -o /sda5/sda5/Temp/_0_Github/fpc_understand_git/src"/>
             <LaunchingApplication PathPlusParams="/usr/X11R6/bin/xterm -T &apos;Lazarus Run Output&apos; -e $(LazarusDir)/tools/runwait.sh $(TargetCmdLine)"/>
           </local>
         </Mode0>
